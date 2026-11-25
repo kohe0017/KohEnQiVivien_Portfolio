@@ -1,0 +1,105 @@
+<!-- DM3014 Interactive Devices
+ Koh En Qi, Vivien "Coding is so hard". This project depicts a hyperlink sculpture of a computer monitor, with the wires trailing off, making it an incomplete picture. I edited the shape of the sculpture as well as added new hyperlinks for every word.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sculpture As 100 Hyperlinks</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+</head>
+<body>
+<script>
+  // This hyperlink poetry is inspired by my tedious and frustrating experience of learning to code in ADM with very very limited guidance and a very strong recommendation to just use AI! Some hyperlinks are definitions, while others are keywords typed into my search bar, reflecting my search history and myself as well.
+ 
+  let links = [
+  { x: 100, y: 100, label: "God", url: "https://en.wikipedia.org/wiki/God", w: 500, h: 400 }, //god
+  { x: 150, y: 100, label: "Coding is so hard", url: "https://en.wikipedia.org/wiki/Coding" },
+  { x: 300, y: 100, label: "I borrowed a book", url: "https://en.wikipedia.org/wiki/Borrow"},
+  { x: 438, y: 100, label: "to learn Javascript", url: "https://brilliant.org/cs/tutor/?utm_medium=cpc&utm_source=search&utm_campaign=15515658418_Mixed_Performance_Max&gclid=CjwKCAiAq5rYBhB-EiwAhj1Rdn7NyvlnZGtbobOIWwJ8RIikDH2WrQ9qJn_WtPos2xNJQwE-a3_OmRoCkmoQAvD_BwE&utm_term=__&utm_content=_&gad_source=1&gad_campaignid=15515662762&gbraid=0AAAAADwPohUVOtvm9TiVnx81r-o9H4nq7"  },
+  { x: 600, y: 100, label: "I looked like a poser", url: "https://www.dictionary.com/browse/poser"},
+  { x: 100, y: 120, label: "It", url: "https://en.wikipedia.org/wiki/It_(2017_film)" },
+  { x: 700, y: 120, label: "Was", url: "https://dictionary.cambridge.org/dictionary/english/was" },
+  { x: 100, y: 140, label: "Very", url: "https://www.youtube.com/watch?v=pY8LE5WuZ4s&t=63" },
+  { x: 700, y: 140, label: "Bad", url: "https://badimitation.com/Michael-Lee" },
+  { x: 100, y: 160, label: "I", url: "https://www.instagram.com/vi_vi_yen/" },
+  { x: 700, y: 160, label: "Feel", url: "https://dictionary.cambridge.org/dictionary/english/feel" },
+  { x: 100, y: 180, label: "Like", url: "https://en.wikipedia.org/wiki/Like" },
+  { x: 700, y: 180, label: "Code", url: "https://en.wikipedia.org/wiki/Code" },
+  { x: 100, y: 200, label: "Is", url: "https://ishs.org/ishs-article/952_114/" },
+  { x: 700, y: 200, label: "An", url: "https://andyokay.com/blogs/the-gallerist/exploring-art-with-deep-meaning?srsltid=AfmBOoqnmVWN5uTRrcvtKMAbr-gcOO0yve-8N_lDeEtCBOTXIDvHYpUu" },
+  { x: 100, y: 220, label: "In", url: "https://www.britannica.com/dictionary/insane" },
+  { x: 700, y: 220, label: "Sane", url: "https://en.wikipedia.org/wiki/Leroy_Sané" },
+  { x: 100, y: 240, label: "Way", url: "https://share.google/hjOste4EvwbIFI0p9" },
+  { x: 700, y: 240, label: "To", url: "https://www.youtube.com/watch?v=-s7TCuCpB5c" },
+  { x: 100, y: 260, label: "Make", url: "https://makerworld.com/en" },
+  { x: 700, y: 260, label: "Art", url: "https://www.artforum.com" },
+  { x: 100, y: 280, label: "I", url: "https://www.instagram.com/vi_vi_yen/" },
+  { x: 700, y: 280, label: "Did", url: "https://share.google/sCQn07wTHYrxfPxTy" },
+  { x: 100, y: 300, label: "Ask", url: "https://asktraining.com.sga" },
+  { x: 700, y: 300, label: "A", url: "https://apps.ntu.edu.sg/WSSClaims_Student/" },
+  { x: 100, y: 320, label: "CCDS", url: "https://www.ntu.edu.sg/computing" },
+  { x: 700, y: 320, label: "Guy", url: "https://share.google/cFkJ9aZNyrGVOA9dx" },
+  { x: 100, y: 340, label: "If", url: "https://en.wikipedia.org/wiki/IF_(film)" },
+  { x: 700, y: 340, label: "He", url: "https://share.google/cFkJ9aZNyrGVOA9dx" },
+  { x: 100, y: 360, label: "Felt", url: "https://share.google/5ZJMmSgYz49HCekTa" },
+  { x: 700, y: 360, label: "There", url: "https://www.grammarly.com/blog/commonly-confused-words/there-their-theyre/" },
+  { x: 100, y: 380, label: "Was", url: "https://www.washingtonpost.com/technology/interactive/2022/tiktok-viral-fame-harassment/" },
+  { x: 700, y: 380, label: "a", url: "https://apps.ntu.edu.sg/WSSClaims_Student/" },
+  { x: 100, y: 400, label: "point", url: "https://share.google/xpG767HWp6Chs23eh" },
+  { x: 700, y: 400, label: "to", url: "https://www.youtube.com/watch?v=-s7TCuCpB5c" },
+  { x: 100, y: 420, label: "learn", url: "https://learngitbranching.js.org" },
+  { x: 700, y: 420, label: "Code", url: "https://www.rtx.com/raytheon/what-we-do/advanced-technology/microelectronics?gad_source=1&gad_campaignid=24346090779&gbraid=0AAAAA9ebRaihFld8_ztbPE8TLGMZX2RXE&gclid=CjwKCAiAq5rYBhB-EiwAhj1RdpteWs9U80rtfEQA3-vULn9etkr9bNjnec6nJQ4ldHtXRi3h8jxatBoC8ckQAvD_BwE" },
+  { x: 100, y: 440, label: "He", url: "https://share.google/cFkJ9aZNyrGVOA9dx" },
+  { x: 700, y: 440, label: "Said", url: "https://www.vocabulary.com/dictionary/said" },
+  { x: 100, y: 460, label: "No", url: "https://nodejs.org/en" },
+  { x: 700, y: 460, label: "lol", url: "https://www.leagueoflegends.com/en-sg/" },
+  { x: 100, y: 480, label: "He said to just use", url: "https://www.justjared.com/2026/07/24/less-than-a-lover-lyrics-meaning-jennie-delivers-a-dreamy-ode-to-a-summer-situationship-who-is-her-co-star-meet-nah-kai/?__cf_chl_rt_tk=TOgAt78tIDgYaZGvIZg1Rwnla35qvrpOwnczGw5Di2Q-1788525163-1.0.1.1-4DH.wpb5csvlsEtaAXqlDYZ1xRuUKrjfbdHUP2_0PSI" },
+  { x: 270, y: 480, label: "Ai", url: "https://www.airbnb.com.sg" },
+  { x: 300, y: 480, label: "But", url: "https://share.google/lpv6rbGV5HFuJSUYl" },
+  { x: 330, y: 480, label: "That does not work", url: "https://en.wikipedia.org/wiki/HTTP_404" },
+  { x: 500, y: 480, label: "Every time", url: "https://share.google/x0jfXWBfVS1mywYe3" },
+  { x: 650, y: 480, label: "Sometimes", url: "https://www.youtube.com/watch?v=t0bPrt69rag" },
+  { x: 370, y: 500, label: "Ai has", url: "https://quillbot.com/ai-content-detector" },
+  { x: 370, y: 520, label: "No idea", url: "https://www.youtube.com/watch?v=_r-nPqWGG6c" },
+  { x: 370, y: 540, label: "How", url: "https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github" },
+  { x: 370, y: 560, label: "to code", url: "https://www.linkedin.com/posts/marketingtouchpoints-marketingfunnel-proctorsshorts-ugcPost-7341028253509263361-F_ha/" },
+  { x: 370, y: 580, label: "and", url: "https://andyokay.com/blogs/the-gallerist/exploring-art-with-deep-meaning?srsltid=AfmBOoqnmVWN5uTRrcvtKMAbr-gcOO0yve-8N_lDeEtCBOTXIDvHYpUu" },
+  { x: 370, y: 600, label: "Neither", url: "https://www.youtube.com/watch?v=LuWO_Qr7nm8" },
+  { x: 370, y: 620, label: "do I", url: "https://www.instagram.com/vi_vi_yen/" },
+  { x: 270, y: 640, label: "I think coding", url: "https://thinking-factory.com/p6-english-tuition/psle-paper-1/psle-2022-paper-1-situational-writing/" },
+  { x: 380, y: 640, label: "with Ai", url: "https://shopwithlove.sg" },
+    { x: 450, y: 640, label: "is a lot like", url: "https://www.youtube.com/watch?v=V2hlQkVJZhE" },
+     { x: 500, y: 660, label: "drawing", url: "https://www.adobe.com/education/students/illustrator.html?sdid=226KCRCD&mv=search&mv2=paidsearch&ef_id=CjwKCAiAq5rYBhB-EiwAhj1RdmqirNP1IJD7OiIMXBPaLNTSck6VFyTrpdUUZ-ao8sOs3bqD_IpySRoCME8QAvD_BwE:G:s&s_kwcid=AL!3085!3!831845688649!b!!g!!illustrator%20education!24479396545!207843702128&mv=search&gad_source=1&gad_campaignid=24479396545&gbraid=0AAAAADql_CCGzk_cuBB4BH9NzpOUXfgVj&gclid=CjwKCAiAq5rYBhB-EiwAhj1RdmqirNP1IJD7OiIMXBPaLNTSck6VFyTrpdUUZ-ao8sOs3bqD_IpySRoCME8QAvD_BwE" },
+  { x: 550, y: 680, label: "a human", url: "https://humankind.design" },
+  { x: 600, y: 700, label: "without", url: "https://www.amazon.sg/Without-Anniversary-Gifts-Distance-Relationship/dp/1452102988" },
+  { x: 600, y: 720, label: "knowing how a human looks like", url: "https://webcamtests.com" },
+  ];
+  
+  let defaultWidth = 1000;
+  let defaultHeight = 1000;
+
+  function setup() {
+    noCanvas(); 
+    for (let i = 0; i < links.length; i++) {
+      let link = links[i];
+      let a = createA('javascript:void(0)', link.label);
+      a.position(link.x, link.y);
+      a.mousePressed(() => openPopup(link));
+    }
+  }
+
+  function openPopup(link) {
+    let w = link.w || defaultWidth;
+    let h = link.h || defaultHeight;
+    window.open(
+      link.url,
+      '_blank',
+      `width=${w},height=${h},left=100,top=50,resizable=yes,scrollbars=yes`
+    );
+  }
+
+</script>
+</body>
+</html>
